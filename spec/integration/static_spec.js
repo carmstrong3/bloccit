@@ -20,6 +20,6 @@ describe("routes : static", () => {
          expect(body).toContain("About Us");
        });
      });
-   });   
+   });
 });
 
