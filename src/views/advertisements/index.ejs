@@ -8,7 +8,7 @@
       <% include ../static/partials/navbar.ejs %>
       <h1>Advertisements</h1>
       <ul class="list-group">
-        <% advertisements.forEach((advertisements) => { %>
+        <% advertisements.forEach((advertisement) => { %>
           <li class="list-group-item">
             <a href="/advertisements/<%= advertisement.id %>"> <%= advertisement.title %> </a>
           </li>
