@@ -50,15 +50,12 @@ describe("User", () => {
         done();
       })
       .catch((err) => {
-// #4
         expect(err.message).toContain("Validation error: must be a valid email");
         done();
       });
     });
 
     it("should not create a user with an email already taken", (done) => {
-
-// #5
       User.create({
         email: "user@example.com",
         password: "1234567890"
@@ -72,7 +69,7 @@ describe("User", () => {
         .then((user) => {
 
           // the code in this block will not be evaluated since the validation error
-          // will skip it. Instead, we'll catch the error in the catch block below
+          // will skip it. Instead, the error will be caught in the catch block below
           // and set the expectations there
 
           done();
