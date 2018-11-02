@@ -90,5 +90,15 @@ module.exports = {
         res.redirect(`/topics/${req.params.id}`);
       }
     });
+  },
+  
+  show(req, res, next){
+    topicQueries.getTopic(req.params.id, (err, topic) => {
+      if(err || topic == null){
+        res.redirect(404, "/");
+      } else {
+        res.render("topics/show", {topic});
+      }
+    });
   } 
 }

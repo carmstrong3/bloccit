@@ -114,7 +114,7 @@ describe("routes : topics", () => {
 
     describe("POST /topics/:id/destroy", () => {
 
-      it("should not delete the topic with the associated ID", (done) => {
+      it("should delete the topic with the associated ID", (done) => {
 
         Topic.all()
         .then((topics) => {
@@ -126,7 +126,7 @@ describe("routes : topics", () => {
             Topic.all()
             .then((topics) => {
               // confirm that no topics were deleted
-              expect(topics.length).toBe(topicCountBeforeDelete);
+              expect(topics.length).toBe(topicCountBeforeDelete - 1);
               done();
             })
 
@@ -139,11 +139,11 @@ describe("routes : topics", () => {
 
     describe("GET /topics/:id/edit", () => {
 
-      it("should not render a view with an edit topic form", (done) => {
+      it("should render a view with an edit topic form", (done) => {
 
         request.get(`${base}${this.topic.id}/edit`, (err, res, body) => {
           expect(err).toBeNull();
-          expect(body).not.toContain("Edit Topic");
+          expect(body).toContain("Edit Topic");
           expect(body).toContain("JS Frameworks"); // confirm redirect to topic show
           done();
         });
@@ -153,7 +153,7 @@ describe("routes : topics", () => {
 
     describe("POST /topics/:id/update", () => {
 
-      it("should not update the topic with the given values", (done) => {
+      it("should update the topic with the given values", (done) => {
         const options = {
           url: `${base}${this.topic.id}/update`,
           form: {
@@ -169,7 +169,7 @@ describe("routes : topics", () => {
             where: { id:1 }
           })
           .then((topic) => {
-            expect(topic.title).toBe("JS Frameworks"); // confirm title is unchanged
+            expect(topic.title).toBe("JavaScript Frameworks"); // confirm title is unchanged
             done();
           });
         });
