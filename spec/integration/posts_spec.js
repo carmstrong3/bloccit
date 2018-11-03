@@ -143,7 +143,7 @@ describe("routes : posts", () => {
           Post.findById(1)
           .then((post) => {
             expect(err).toBeNull();
-            expect(post.title).toContain("Snowball Fighting");
+            expect(post).toBeNull();
             done();
           })
         });
@@ -235,9 +235,9 @@ describe("routes : posts", () => {
             Post.findOne({where: {title: "Watching snow melt"}})
             .then((post) => {
               expect(post).not.toBeNull();
-              expect(this.post.title).toBe("Watching snow melt");
-              expect(this.post.body).toBe("Without a doubt my favoriting things to do besides watching paint dry!");
-              expect(this.post.topicId).not.toBeNull();
+              expect(post.title).toBe("Watching snow melt");
+              expect(post.body).toBe("Without a doubt my favoriting things to do besides watching paint dry!");
+              expect(post.topicId).not.toBeNull();
               done();
             })
             .catch((err) => {
