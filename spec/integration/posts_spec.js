@@ -143,7 +143,7 @@ describe("routes : posts", () => {
           Post.findById(1)
           .then((post) => {
             expect(err).toBeNull();
-            expect(post).toBeNull();
+            expect(post.title).toContain("Snowball Fighting");
             done();
           })
         });
