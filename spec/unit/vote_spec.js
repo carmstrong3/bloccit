@@ -1,6 +1,6 @@
 const sequelize = require("../../src/db/models/index").sequelize;
 const Topic = require("../../src/db/models").Topic;
-const Post = ("../../src/db/models").Post;
+const Post = require("../../src/db/models").Post;
 const Comment = require("../../src/db/models").Comment;
 const User = require("../../src/db/models").User;
 const Vote = require("../../src/db/models").Vote;
@@ -224,7 +224,7 @@ describe("Vote", () => {
       .then((vote) => {
         this.comment.getPost()
         .then((associatedPost) => {
-          expect(associatedPost.title).toBe("My first visit to Proxima Centauri B");
+          expect(associatedPost.title).toBe("My first visit to Proxima Centauri b");
           done();
         });
       })
@@ -235,3 +235,4 @@ describe("Vote", () => {
     });
   });
 });
+

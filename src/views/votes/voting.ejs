@@ -1,0 +1,13 @@
+<!-- Wrap the voting arrows and point display in container  -->
+<div class="pull-left" style="width: 40px;text-align: center;">
+  <div>
+<!-- Anchor tag points to the upvote action -->
+    <a href="/topics/<%= post.topicId %>/posts/<%= post.id %>/votes/upvote">&#9650;</a>
+  </div>
+<!-- Display total upvotes/downvotes -->
+    <b><%= post.getPoints() %></b>
+  <div>
+<!-- Anchor tag points to the downvote action -->
+    <a href="/topics/<%= post.topicId %>/posts/<%= post.id %>/votes/downvote">&#9660;</a>
+  </div>
+</div>

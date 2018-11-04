@@ -1,6 +1,6 @@
 'use strict';
 module.exports = (sequelize, DataTypes) => {
-  var Comment = sequelize.define('Comment', {
+  const Comment = sequelize.define('Comment', {
     body: {
       type: DataTypes.STRING,
       allowNull: false
@@ -20,7 +20,7 @@ module.exports = (sequelize, DataTypes) => {
       foreignKey: "postId",
       onDelete: "CASCADE"
     });
-    
+
     Comment.belongsTo(models.User, {
       foreignKey: "userId",
       onDelete: "CASCADE"
