@@ -51,8 +51,8 @@ describe("routes : comments", () => {
             userId: this.user.id,          
             postId: this.post.id
           })
-          .then((coment) => {
-            this.comment = coment;             // store comment
+          .then((comment) => {
+            this.comment = comment;             // store comment
             done();
           })
           .catch((err) => {
@@ -204,13 +204,84 @@ describe("routes : comments", () => {
                expect(comments.length).toBe(commentCountBeforeDelete - 1);
                done();
              })
-
            });
          })
+       });
 
+     });
+// Ensure a user who is signed in is not able to destroy another users comment.
+     describe("POST /topics/:topicId/posts/:postId/comments/:id/destroy", () => {
+       beforeEach((done) => {
+         let newUser = 
+           User.create({
+            email: "muskrat@tesla.com",
+            password: "spacexisfun",
+            role: "member"
+           });  //create new user
+         this.comment.userId = newUser.id; // change owner of this.comment
+         done();
+       });
+       
+       it("should not delete the comment with the associated ID", (done) => {
+         Comment.all()
+         .then((comments) => {
+           const commentCountBeforeDelete = comments.length;
+
+           expect(commentCountBeforeDelete).toBe(1);
+
+           request.post(
+            `${base}${this.topic.id}/posts/${this.post.id}/comments/${this.comment.id}/destroy`,
+             (err, res, body) => {
+             expect(res.statusCode).toBe(302);
+             Comment.all()
+             .then((comments) => {
+               expect(comments.length).toBe(commentCountBeforeDelete);
+               done();
+             })
+           });
+         })
        });
 
      });
 
    }); //end context for signed in user
+ // Define a context for an admin user.
+  describe("admin user performing delete actions for Comment", () => {
+
+    beforeEach((done) => {    // before each suite in this context
+      request.get({           // mock authentication
+        url: "http://localhost:3000/auth/fake",
+        form: {
+          role: "admin",     // mock authenticate as admin user
+          userId: this.user.id
+        }
+      },
+      (err, res, body) => {
+        done();
+      }
+      );
+    });
+    // Ensure an admin who is signed in is able to destroy a comment.
+    describe("POST /topics/:topicId/posts/:postId/comments/:id/destroy", () => {
+
+      it("should delete the comment with the associated ID", (done) => {
+        Comment.all()
+        .then((comments) => {
+          const commentCountBeforeDelete = comments.length;
+          expect(commentCountBeforeDelete).toBe(1);
+          request.post(
+            `${base}${this.topic.id}/posts/${this.post.id}/comments/${this.comment.id}/destroy`,
+            (err, res, body) => {
+            expect(res.statusCode).toBe(302);
+            Comment.all()
+            .then((comments) => {
+              expect(err).toBeNull();
+              expect(comments.length).toBe(commentCountBeforeDelete - 1);
+              done();
+            })
+          });
+        })
+      });
+    });
+  });  // End of admin context 
 });
