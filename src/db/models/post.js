@@ -50,10 +50,10 @@ module.exports = (sequelize, DataTypes) => {
       .reduce((prev, next) => { return prev + next });
   };
 
-  Post.prototype.hasUpvoteFor = function(userIdentification){
+  Post.prototype.hasUpvoteFor = function(currentUser){
     if(this.votes.length === 0) return false;
     for(let i = 0; i < this.votes.length; i++){
-      if(this.votes[i].userId === userIdentification){
+      if(this.votes[i].userId === currentUser.id){
         return true
       }
     }

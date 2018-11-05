@@ -173,6 +173,55 @@ describe("routes : votes", () => {
          );
        });
      });
+     describe("GET /topics/:topicId/posts/:postId", () => {
+       it("should show that a signed-in user has not voted on this post yet.", (done) => {
+         const options = {
+           url: `${base}${this.topic.id}/posts/${this.post.id}`
+         };
+         request.get(options,
+           (err, res, body) => {
+             expect(body).toContain(false)
+             done();
+           }
+         );
+       });
+     });
+     describe("GET /topics/:topicId/posts/:postId", () => {
+       it("should show that a signed-in user has voted on this post yet.", (done) => {
+         const option1 = {
+           url: `${base}${this.topic.id}/posts/${this.post.id}`
+         };
+         const option2 = {
+           url: `${base}${this.topic.id}/posts/${this.post.id}/votes/upvote`
+           };
+           request.get(option2,
+             (err, res, body) => {
+               Vote.findOne({
+                 where: {
+                   userId: this.user.id,
+                   postId: this.post.id
+                 }
+               })
+               .then((vote) => {               // confirm that an upvote was created
+                 expect(vote).not.toBeNull();
+                 expect(vote.value).toBe(1);
+                 expect(vote.userId).toBe(this.user.id);
+                 expect(vote.postId).toBe(this.post.id);
+                 done();
+               })
+               .catch((err) => {
+                 console.log(err);
+                 done();
+               });
+           });
+           request.get(option1,
+             (err, res, body) => {
+               expect(body).toContain(true)
+               done();
+             }
+           );  
+       });
+     });     
    }); //end context for signed in user
 
   });

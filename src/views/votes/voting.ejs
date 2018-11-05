@@ -11,3 +11,9 @@
     <a href="/topics/<%= post.topicId %>/posts/<%= post.id %>/votes/downvote">&#9660;</a>
   </div>
 </div>
+
+<!-- Show whether or not someone has voted -->
+<div>
+  <p>You have voted:</p>
+  <b><%= post.hasUpvoteFor(currentUser.id) %></b>
+</div>
