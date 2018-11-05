@@ -51,6 +51,7 @@ module.exports = (sequelize, DataTypes) => {
   };
 
   Post.prototype.hasUpvoteFor = function(currentUser){
+    console.log(currentUser);
     if(this.votes.length === 0) return false;
     for(let i = 0; i < this.votes.length; i++){
       if(this.votes[i].userId === currentUser.id){
