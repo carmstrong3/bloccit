@@ -13,7 +13,13 @@
 </div>
 
 <!-- Show whether or not someone has voted -->
-<div>
-  <p>You have voted:</p>
-  <b><%= post.hasUpvoteFor(currentUser) %></b>
+<div style="text-align: center;">
+  <div>
+    <p>You have upvoted:</p>
+    <b><%= post.hasUpvoteFor(currentUser) %></b>
+  </div>
+  <div>
+  <p>You have downvoted:</p>
+  <b><%= post.hasDownvoteFor(currentUser) %></b>
+  </div>
 </div>

@@ -207,19 +207,18 @@ describe("routes : votes", () => {
                  expect(vote.value).toBe(1);
                  expect(vote.userId).toBe(this.user.id);
                  expect(vote.postId).toBe(this.post.id);
-                 done();
-               })
+                 request.get(option1,
+                   (err, res, body) => {
+                     expect(body).toContain(true)
+                     done();
+                   }
+                 );
+               }) 
                .catch((err) => {
                  console.log(err);
                  done();
                });
-           });
-           request.get(option1,
-             (err, res, body) => {
-               expect(body).toContain(true)
-               done();
-             }
-           );  
+           }); 
        });
      });     
    }); //end context for signed in user

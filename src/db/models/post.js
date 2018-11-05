@@ -51,15 +51,25 @@ module.exports = (sequelize, DataTypes) => {
   };
 
   Post.prototype.hasUpvoteFor = function(currentUser){
-    console.log(currentUser);
-    if(this.votes.length === 0) return false;
-    for(let i = 0; i < this.votes.length; i++){
-      if(this.votes[i].userId === currentUser.id){
+    if(this.votes.length === 0) return false;  // If there are no votes, return false
+    for(let i = 0; i < this.votes.length; i++){  // Iterate over votes array
+      if(this.votes[i].userId === currentUser.id && this.votes[i].value === 1) {  // If votes userId equal currentUser Id and the value of the vote is equal to 1, return true 
         return true
       }
     }
-    return false
+    return false  // If nothing in the array meets the conditions, return false
   };
+
+  Post.prototype.hasDownvoteFor = function(currentUser){
+    if(this.votes.length === 0) return false;  // If there are no votes, return false
+    for(let i = 0; i < this.votes.length; i++){  // Iterate over votes array
+      if(this.votes[i].userId === currentUser.id && this.votes[i].value === -1) {  // If votes userId equal currentUser Id and the value of the vote is equal to -1, return true 
+        return true
+      }
+    }
+    return false  // If nothing in the array meets the conditions, return false
+  };
+
 
   return Post;
 };
