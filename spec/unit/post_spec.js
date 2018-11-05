@@ -122,4 +122,12 @@ describe("Post", () => {
       });
     });
   });
+  
+  describe("#hasUpvoteFor()", () => {
+    it("should return true if userId matches vote.userId", (done) => {
+      expect(this.post.hasUpvoteFor(this.user.id)).toBe(false);
+      done();
+    });
+  }); 
+      
 });
