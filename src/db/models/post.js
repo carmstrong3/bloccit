@@ -44,6 +44,14 @@ module.exports = (sequelize, DataTypes) => {
       foreignKey: "postId",
       as: "favorites"
     });
+
+    Post.afterCreate((post, callback) => {
+      return models.Favorite.create({
+        userId: post.userId,
+        postId: post.id
+      });
+    });
+
   };
 
   Post.prototype.getPoints = function(){
@@ -59,7 +67,6 @@ module.exports = (sequelize, DataTypes) => {
     // Check all favorites on this post and return the one where userId in the favorite is the same as the passed userId
     return this.favorites.find((favorite) => { return favorite.userId == userId });
   };
-
 
   return Post;
 };

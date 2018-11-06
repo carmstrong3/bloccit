@@ -160,6 +160,7 @@ describe("routes : favorites", () => {
 
         let favCountBeforeDelete;
          request.post(options, (err, res, body) => {
+          done();
           this.post.getFavorites()
           .then((favorites) => {
             const favorite = favorites[0];
