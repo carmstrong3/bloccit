@@ -142,7 +142,6 @@ describe("routes : users", () => {
       request.get(`${base}${this.user.id}`, (err, res, body) => {
 
  // Set the expectations that there will be a list with the comment and post that was just created.
-        console.log(body);
         expect(body).toContain("Snowball Fighting");
         expect(body).toContain("This comment is alright.")
         done();

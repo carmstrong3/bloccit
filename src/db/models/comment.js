@@ -1,5 +1,4 @@
 const models = require("../models");
-const Post = require("../models").Post;
 
 'use strict';
 module.exports = (sequelize, DataTypes) => {
