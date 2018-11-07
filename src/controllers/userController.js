@@ -41,6 +41,21 @@ module.exports = {
     req.logout();
     req.flash("notice", "You've successfully signed out!");
     res.redirect("/");
-  }
+  },
+  show(req, res, next){
 
+   // call getUser, passing the id
+    userQueries.getUser(req.params.id, (err, result) => {
+
+   // If the user property of result is not defined, there is no user.
+      if(err || result.user === undefined){
+        req.flash("notice", "No user found with that ID.");
+        res.redirect("/");
+      } else {
+
+   // If everything passed, render the view via the result object.
+        res.render("users/show", {result});
+      }
+    });
+  }
 }

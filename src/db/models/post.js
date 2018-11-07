@@ -68,5 +68,17 @@ module.exports = (sequelize, DataTypes) => {
     return this.favorites.find((favorite) => { return favorite.userId == userId });
   };
 
+  // Define the scope by calling addScope on the model.
+  Post.addScope("lastFiveFor", (userId) => {
+  // Return the implemented query
+    return {
+      where: { userId: userId},
+  // Set a limit which establishes the maximum number of records the query will return. Order by newest first by the "createdAt" property of the post.
+      limit: 5,
+      order: [["createdAt", "DESC"]]
+    }
+  });
+
+
   return Post;
 };
