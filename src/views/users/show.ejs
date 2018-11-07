@@ -12,7 +12,7 @@
       <% include ../static/partials/messages.ejs %>
 
  <!-- Evaluate the user's email -->
-      <h1><%= `${user.email}'s profile` %></h1>
+      <h1><%= `${currentUser.email}'s profile` %></h1>
 
       <hr>
 
@@ -21,8 +21,8 @@
       <ul class="list-unstyled">
 
  <!-- Check if there are posts for the user -->
-        <% if(posts) { %>
-          <% posts.forEach((post) => { %>
+        <% if(result["posts"]) { %>
+          <% result["posts"].forEach((post) => { %>
  <!-- If there are posts, build a <li> for each and link ot the post's show view -->
             <li>
               <a href="/topics/<%= post.topicId %>/posts/<%= post.id %>">
@@ -39,8 +39,8 @@
       <ul class="list-unstyled">
 
  <!-- Check if there are comments for the user -->
-        <% if(comments) { %>
-          <% comments.forEach((comment) => { %>
+        <% if(result["comments"]) { %>
+          <% result["comments"].forEach((comment) => { %>
 
  <!-- If there are comments, build a <li> for each and link to the comment's post -->
             <li>

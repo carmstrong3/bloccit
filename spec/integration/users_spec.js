@@ -136,16 +136,17 @@ describe("routes : users", () => {
 
     });
 
- // This will make a request to the profile page
+ // This will make a request to the profile page 
     it("should present a list of comments and posts a user has created", (done) => {
 
       request.get(`${base}${this.user.id}`, (err, res, body) => {
 
  // Set the expectations that there will be a list with the comment and post that was just created.
-       console.log(this.user.id);
-       done();
+        console.log(body);
+        expect(body).toContain("Snowball Fighting");
+        expect(body).toContain("This comment is alright.")
+        done();
       });
-
     });
   }); 
 });

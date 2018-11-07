@@ -40,6 +40,7 @@ module.exports = {
           .then((comments) => {
  // Store the result in the object and pass the object to the callback.
             result["comments"] = comments;
+            console.log(result["comments"]);
             callback(null, result);
           })
           .catch((err) => {

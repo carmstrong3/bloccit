@@ -1,4 +1,5 @@
 const models = require("../models");
+const Post = require("../models").Post;
 
 'use strict';
 module.exports = (sequelize, DataTypes) => {
@@ -31,9 +32,10 @@ module.exports = (sequelize, DataTypes) => {
 
   Comment.addScope("lastFiveFor", (userId) => {
   //  Include the `Post` for each `Comment` to build an anchor tag.
-    return {
+   const Post = require("../models").Post;
+   return {
       include: [{
-        model: models.Post
+        model: Post
       }],
       where: { userId: userId},
       limit: 5,
