@@ -23,5 +23,19 @@ module.exports = (sequelize, DataTypes) => {
     });
 
   };
+
+  Favorite.addScope("favoritedPosts", (userId) => {
+  //  Include the `Post` for each `Favorite` to build an anchor tag.
+   const Post = require("../models").Post;
+   return {
+      include: [{
+        model: Post
+      }],
+      where: { userId: userId},
+      order: [["createdAt", "DESC"]]
+    }
+  });
+
+
   return Favorite;
 };

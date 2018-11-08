@@ -53,6 +53,26 @@
           <% }) %>
         <% } %>
       </ul>
+       <hr>
+
+      <h2> Latest Favorites</h2>
+
+      <ul class="list-unstyled">
+
+ <!-- Check if there are favorites for the user -->
+        <% if(result["favorites"]) { %>
+          <% result["favorites"].forEach((favorite) => { %>
+
+ <!-- If there are comments, build a <li> for each and link to the comment's post -->
+            <li>
+              <span>Post: </span><a href="/topics/<%= favorite.Post.topicId %>/posts/<%= favorite.Post.id %>">
+                <%= favorite.Post.title %>
+              </a>
+            </li>
+            <hr>
+          <% }) %>
+        <% } %>
+      </ul>
     </main>
 
     <% include ../static/partials/baseScripts.ejs %>
